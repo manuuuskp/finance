@@ -1,9 +1,9 @@
-import MenuBar from './component/MenuBar';
+import React from "react";
 
 function App() {
   return (
     <div className="App">
-      <MenuBar />
+      <h1>Hi Things are going good</h1>
     </div>
   );
 }
