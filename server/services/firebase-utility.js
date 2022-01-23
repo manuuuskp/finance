@@ -1,9 +1,12 @@
 import app, { db } from "../config/firebase-config";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { v4 as uuid } from "uuid";
 
 const auth = getAuth(app);
 const USERS = "users";
+const PARTY = "party";
+const LOAN = "loan";
 
 export const setDocument = async (docRef, docData) => {
   await setDoc(docRef, docData);
@@ -23,7 +26,7 @@ export const createUser = (user, uid = auth.currentUser.uid) => {
   setDocument(docRef, userData);
 };
 
-export function socialMediaAuth(provider) {
+export const socialMediaAuth = (provider) => {
   return signInWithPopup(auth, provider)
     .then((result) => {
       const credential = provider.credentialFromResult(result);
@@ -61,3 +64,24 @@ export const socialSignIn = async () => {
   }
   return user;
 };
+
+const createParty = (party, uid = uuid()) => {
+  const docRef = doc(db, USERS, auth.currentUser.uid, PARTY, uid);
+  const partyData = {
+    ...party,
+    created: serverTimestamp(),
+    updated: serverTimestamp()
+  }
+  setDocument(docRef, partyData);
+}
+
+const createLoan = (loan, uid = uuid()) => {
+  const docRef = doc(db, USERS, auth.currentUser.uid, LOAN, uid);
+  const loanData = {
+    ...loan,
+    created: serverTimestamp(),
+    updated: serverTimestamp()
+  }
+  setDocument(docRef, loanData);
+}
+
