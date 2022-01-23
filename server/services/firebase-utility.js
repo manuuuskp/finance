@@ -1,6 +1,13 @@
 import app, { db } from "../config/firebase-config";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  serverTimestamp,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 
 const auth = getAuth(app);
@@ -41,7 +48,7 @@ export const socialMediaAuth = (provider) => {
       console.log(er);
       return null;
     });
-}
+};
 
 export const socialSignIn = async () => {
   const res = await socialMediaAuth(GoogleAuthProvider);
@@ -65,23 +72,38 @@ export const socialSignIn = async () => {
   return user;
 };
 
-const createParty = (party, uid = uuid()) => {
+export const createParty = (party, uid = uuid()) => {
   const docRef = doc(db, USERS, auth.currentUser.uid, PARTY, uid);
   const partyData = {
     ...party,
     created: serverTimestamp(),
-    updated: serverTimestamp()
-  }
+    updated: serverTimestamp(),
+  };
   setDocument(docRef, partyData);
-}
+};
 
-const createLoan = (loan, uid = uuid()) => {
+export const createLoan = (loan, uid = uuid()) => {
   const docRef = doc(db, USERS, auth.currentUser.uid, LOAN, uid);
   const loanData = {
     ...loan,
     created: serverTimestamp(),
-    updated: serverTimestamp()
-  }
+    updated: serverTimestamp(),
+  };
   setDocument(docRef, loanData);
-}
+};
 
+// uid => unique ID(primary key) of that particular user
+export const getUser = async (uid) => {
+  const userRef = doc(db, USERS, uid);
+  const userRefSnap = await getDocument(userRef);
+  return userRefSnap.data();
+};
+
+export const getUserAll = async () => {
+  const userData = [];
+  const userAllRefSnap = await getDocs(collection(db, USERS));
+  userAllRefSnap.forEach((doc) => {
+    userData.push(doc.data());
+  });
+  return userData;
+};
