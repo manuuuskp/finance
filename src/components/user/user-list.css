@@ -1,0 +1,29 @@
+.table>:not(:first-child) {
+    border-top: 0px solid currentColor;
+}
+
+.table{
+	color: #5a5a5a;
+}
+
+th{
+	font-weight: unset;
+}
+
+.floatButton{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0d6efd;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.floatIcon{
+    color:#FFF;
+	margin-top:22px;
+}

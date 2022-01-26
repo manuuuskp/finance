@@ -7,31 +7,31 @@ import {
   serverTimestamp,
   collection,
   getDocs,
+  updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 
 const auth = getAuth(app);
 const USERS = "users";
-const PARTY = "party";
-const LOAN = "loan";
 
 export const setDocument = async (docRef, docData) => {
   await setDoc(docRef, docData);
 };
 
 export const getDocument = (docRef) => {
-  return await getDoc(docRef);
+  return getDoc(docRef);
 };
 
-export const createUser = (user, uid = auth.currentUser.uid) => {
-  const docRef = doc(db, USERS, uid);
-  const userData = {
-    ...user,
-    created: serverTimestamp(),
-    updated: serverTimestamp(),
-  };
-  setDocument(docRef, userData);
-};
+// export const createUser = (user, uid = auth.currentUser.uid) => {
+//   const docRef = doc(db, USERS, uid);
+//   const userData = {
+//     ...user,
+//     created: serverTimestamp(),
+//     updated: serverTimestamp(),
+//   };
+//   setDocument(docRef, userData);
+// };
 
 export const socialMediaAuth = (provider) => {
   return signInWithPopup(auth, provider)
@@ -72,38 +72,62 @@ export const socialSignIn = async () => {
   return user;
 };
 
-export const createParty = (party, uid = uuid()) => {
-  const docRef = doc(db, USERS, auth.currentUser.uid, PARTY, uid);
-  const partyData = {
-    ...party,
+// export const createParty = (party, uid = uuid()) => {
+//   const docRef = doc(db, USERS, auth.currentUser.uid, PARTY, uid);
+//   const partyData = {
+//     ...party,
+//     created: serverTimestamp(),
+//     updated: serverTimestamp(),
+//   };
+//   setDocument(docRef, partyData);
+// };
+
+// export const createLoan = (loan, uid = uuid()) => {
+//   const docRef = doc(db, USERS, auth.currentUser.uid, LOAN, uid);
+//   const loanData = {
+//     ...loan,
+//     created: serverTimestamp(),
+//     updated: serverTimestamp(),
+//   };
+//   setDocument(docRef, loanData);
+// };
+
+
+export const insertDocument = async (tableName, data, opt_uuid) => {
+  const docRef = doc(db, tableName, opt_uuid || uuid());
+  const updatedData = {
+    ...data,
     created: serverTimestamp(),
     updated: serverTimestamp(),
   };
-  setDocument(docRef, partyData);
+  await setDoc(docRef, updatedData);
 };
 
-export const createLoan = (loan, uid = uuid()) => {
-  const docRef = doc(db, USERS, auth.currentUser.uid, LOAN, uid);
-  const loanData = {
-    ...loan,
-    created: serverTimestamp(),
-    updated: serverTimestamp(),
-  };
-  setDocument(docRef, loanData);
+export const findDocument = async (tableName, id) => {
+  const docRef = doc(db, tableName, id);
+  const record = await getDoc(docRef);
+  return record.data();
 };
 
-// uid => unique ID(primary key) of that particular user
-export const getUser = async (uid) => {
-  const userRef = doc(db, USERS, uid);
-  const userRefSnap = await getDocument(userRef);
-  return userRefSnap.data();
-};
-
-export const getUserAll = async () => {
-  const userData = [];
-  const userAllRefSnap = await getDocs(collection(db, USERS));
-  userAllRefSnap.forEach((doc) => {
-    userData.push(doc.data());
+export const findAllDocuments = async (tableName) => {
+  const data = [];
+  const dataSnap = await getDocs(collection(db, tableName));
+  dataSnap.forEach((doc) => {
+    data.push({ ...doc.data(), id: doc.id });
   });
-  return userData;
-};
+  return data;
+}
+
+export const updateDocument = async (tableName, id, data) => {
+  const docRef = doc(db, tableName, id);
+  const updatedData = {
+    ...data,
+    updated: serverTimestamp(),
+  };
+  await updateDoc(docRef, updatedData)
+}
+
+export const deleteDocument = async (tableName, id) => {
+  const docRef = doc(db, tableName, id);
+  await deleteDoc(docRef);
+}

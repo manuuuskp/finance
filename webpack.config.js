@@ -43,18 +43,12 @@ const modules = {
             }
         },
         {
-            test: /\.(sa|sc|c)ss$/,
-            exclude: [/node_modules/],
+            test: /\.(sass|css|scss)$/,
             use: [
-                {
-                    loader: 'style-loader'
-                },
-                {
-                    loader: 'css-loader',
-                },
+                'style-loader',
+                'css-loader',
             ]
-
-        }
+        },
     ]
 };
 
@@ -106,7 +100,8 @@ var configObject = {
         hot: true,
         proxy: {
             "/api": "http://localhost:5000"
-        }
+        },
+        historyApiFallback: true
     },
     // optimization,
     devtool: "inline-cheap-module-source-map",
