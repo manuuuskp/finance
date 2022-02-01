@@ -2,8 +2,8 @@ import { deleteDocument, findAllDocuments, findDocument, insertDocument, updateD
 
 const TABLE_NAME = "loans";
 
-export const insert = async (data) => {
-    await insertDocument(TABLE_NAME, data)
+export const insert = async (data, uuid) => {
+    await insertDocument(TABLE_NAME, data, uuid)
 };
 
 export const find = async (uid) => {
