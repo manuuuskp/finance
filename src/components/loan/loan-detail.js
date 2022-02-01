@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 import * as loanService from "../../service/loan"
+import * as transactionService from "../../service/transaction";
 
 const LoanDetail = (props) => {
 
@@ -26,10 +27,18 @@ const LoanDetail = (props) => {
         setLoanData(values => ({ ...values, [name]: value }))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (mode == 1) {
-            loanService.insert(loanData).then(() => { setLoanData({}) });
+           await transactionService.insert({
+                "sender": loanData.lender,
+                "receiver": loanData.borrower,
+                "amount": loanData.loanAmount,
+                "transactionType": "principle",
+                "paymentMode": "cash"
+            })
+            await loanService.insert(loanData);
+            setLoanData({});
             return;
         }
         let loanId = location.state.loanId;
