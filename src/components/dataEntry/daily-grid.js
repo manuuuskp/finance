@@ -104,7 +104,7 @@ const DailyGrid = () => {
         </span>
       </div>
         <BootstrapTable id='daily-entry' keyField='id' data={transaction} columns={columns} bootstrap4={true} cellEdit={cellEdit} />
-        <button type="button" classNameName="btn btn-primary" onClick={saveTransactions}>Save</button>
+        <button type="button" className="btn btn-primary" onClick={saveTransactions}>Save</button>
     </div>
 }
 
