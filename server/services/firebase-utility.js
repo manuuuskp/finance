@@ -1,5 +1,5 @@
 import app, { db } from "../config/firebase-config";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
   doc,
   setDoc,
@@ -9,6 +9,10 @@ import {
   getDocs,
   updateDoc,
   deleteDoc,
+  query,
+  where,
+  WriteBatch,
+  writeBatch,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 
@@ -41,7 +45,7 @@ export const socialMediaAuth = (provider) => {
       console.log("#####" + token);
       // The signed-in user info.
       const user = result.user;
-      user.apiAccessToken = token;
+      //user.apiAccessToken = token;
       return user;
     })
     .catch((er) => {
@@ -67,7 +71,7 @@ export const socialSignIn = async () => {
   };
 
   if (!userRefSnap.exists()) {
-    await createUser(user, res.uid);
+    //await createUser(user, res.uid);
   }
   return user;
 };
@@ -130,4 +134,56 @@ export const updateDocument = async (tableName, id, data) => {
 export const deleteDocument = async (tableName, id) => {
   const docRef = doc(db, tableName, id);
   await deleteDoc(docRef);
+}
+
+export const searchDocuments = async (tableName, whereList, orderBy, limit, offset) => {
+  const queryConstraints = [];
+  const data = [];
+  whereList.forEach(condition => { queryConstraints.push(where(condition.columnName, condition.operator, condition.value)) });
+  const querySnapshot = await getDocs(query(collection(db, tableName), ...queryConstraints));
+  querySnapshot.forEach((doc) => {
+    data.push({ ...doc.data(), id: doc.id });
+  });
+  return data;
+}
+
+export const bulkOperations = async (tableName, bulkData) => {
+
+  const batch = writeBatch(db);
+  
+  if (bulkData['insert']) {
+    let insertList = bulkData['insert'];
+    insertList.forEach(insertData => {
+      let docRef = doc(db, tableName, uuid());
+      let updatedData = {
+        ...insertData,
+        created: serverTimestamp(),
+        updated: serverTimestamp(),
+      };
+      batch.set(docRef, updatedData);
+    })
+  }
+
+  if (bulkData['update']) {
+    let updateList = bulkData['update'];
+    updateList.forEach(updateData => {
+      const docRef = doc(db, tableName, updateData.id);
+      const updatedData = {
+        ...updateData,
+        updated: serverTimestamp(),
+      };
+      batch.update(docRef, updatedData)
+    })
+  }
+
+  if (bulkData['delete']) {
+    let deleteList = bulkData['delete'];
+    deleteList.forEach(deleteData => {
+      const docRef = doc(db, tableName, deleteData.id);
+      batch.delete(docRef)
+    })
+  }
+
+  return batch.commit();
+
 }
