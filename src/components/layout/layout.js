@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Link } from 'react-router-dom';
+import DailyGrid from "../dataEntry/daily-grid";
 import Home from "../home/home";
 import LoanDetail from "../loan/loan-detail";
 import LoanList from "../loan/loan-list";
@@ -18,6 +19,7 @@ const Layout = (props) => {
                     <li className="nav-item"><Link to={'/users'} className="nav-link">Users</Link></li>
                     <li className="nav-item"><Link to={'/loans'} className="nav-link">Loans</Link></li>
                     <li className="nav-item"><Link to={'/transaction'} className="nav-link">Transaction</Link></li>
+                    <li className="nav-item"><Link to={'/dailyEntry'} className="nav-link">Entry</Link></li>
                     <li className="nav-item"><Link to={'/contact'} className="nav-link">Contact</Link></li>
                     <li className="nav-item"><Link to={'/profile'} className="nav-link">Profile</Link></li>
                 </ul>
@@ -29,6 +31,7 @@ const Layout = (props) => {
                 <Route path='/users' component={UserList} />
                 <Route path='/loans' component={LoanList} />
                 <Route path='/transaction' component={TransactionList} />
+                <Route path='/dailyEntry' component={DailyGrid} />
                 <Route path='/contact' component={Home} />
                 <Route path='/profile' component={Home} />
                 <Route path='/userDetail' component={UserDetail} />

@@ -1,4 +1,4 @@
-import { deleteDocument, findAllDocuments, findDocument, insertDocument, updateDocument } from "../../server/services/firebase-utility";
+import { deleteDocument, findAllDocuments, findDocument, insertDocument, updateDocument, searchDocuments } from "../../server/services/firebase-utility";
 
 const TABLE_NAME = "loans";
 
@@ -20,4 +20,8 @@ export const update = async (id, data) => {
 
 export const deleteRecord = async (id) => {
     await deleteDocument(TABLE_NAME, id);
+}
+
+export const search = async (whereList, orderBy, limit, offset) => {
+    return searchDocuments(TABLE_NAME, whereList, orderBy, limit, offset);
 }

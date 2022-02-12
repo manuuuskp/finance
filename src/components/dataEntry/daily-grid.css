@@ -1,0 +1,7 @@
+.react-bootstrap-table{
+    overflow: auto;
+}
+#daily-entry.table{
+    width:max-content;
+}
+.react-bootstrap-table table > tbody > tr > td:nth-child(1), .react-bootstrap-table table > thead > tr:nth-child(1) > th:nth-child(1) { background-color: white; position: sticky; position: -webkit-sticky; left:0; z-index:1; }
