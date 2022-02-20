@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./LoanList.css";
+import classes from "./LoanList.module.css";
 import { useHistory } from 'react-router-dom';
 import * as loanSerice from "../../service/loan"
 
@@ -22,7 +22,7 @@ const LoanList = () => {
         navigate.push({ pathname: '/loanDetail', state: { mode: 2, loanId: loanId } });
     }
 
-    return <div className="table-container">
+    return <div className={classes.tableContainer}>
         <table className="table table-light table-hover caption-top">
             <caption>List of Loans</caption>
             <thead className="table-light">
