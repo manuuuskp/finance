@@ -1,12 +1,12 @@
 import React from "react";
 import { Switch, Route } from 'react-router-dom';
-import DailyGrid from "../dataEntry/daily-grid";
-import Home from "../home/home";
-import LoanDetail from "../loan/loan-detail";
-import LoanList from "../loan/loan-list";
-import TransactionList from "../transaction/transaction-list";
-import UserDetail from "../user/user-detail";
-import UserList from "../user/user-list";
+import DailyGrid from "../dataEntry/DailyGrid";
+import Home from "../home/Home";
+import LoanDetail from "../loan/LoanDetail";
+import LoanList from "../loan/LoanList";
+import TransactionList from "../transaction/TransactionList";
+import UserDetail from "../user/UserDetail";
+import UserList from "../user/UserList";
 
 const RouterItem = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as transactionService from "../../service/transaction";
 
-import "./transaction-list.css";
+import "./TransactionList.css";
 
 const TransactionList = () => {
   const [transactions , setTransactions] = useState([]);
