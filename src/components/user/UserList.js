@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./user-list.css";
+import "./UserList.css";
 import { useHistory } from 'react-router-dom';
 import * as userService from "../../service/user"
 

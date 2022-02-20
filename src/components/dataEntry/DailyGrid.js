@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./daily-grid.css";
+import "./DailyGrid.css";
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import * as dailyEntryService from "../../service/dailyEntry";
-import $ from 'jquery';
 
 const DailyGrid = () => {
 

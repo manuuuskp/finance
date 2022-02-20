@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./loan-list.css";
+import "./LoanList.css";
 import { useHistory } from 'react-router-dom';
 import * as loanSerice from "../../service/loan"
-
-import "./loan-list.css";
 
 const LoanList = () => {
 
