@@ -1,12 +1,17 @@
-import React from "react";
-import TransactionIcon from "../../icons/transaction/TransactionIcon";
+import React, { useContext } from "react";
+import HamburgerIcon from "../../icons/hamburger/HamburgerIcon";
+import drawerContext from "../../../store/drawer-context";
 
 import classes from "./SidebarHeader.module.css";
 
 const SidebarHeader = () => {
+  const drawerCtx = useContext(drawerContext);
+  const ChangeDrawerState = () => {
+    drawerCtx.setDrawerState();
+  }
   return (
     <div className={classes.sidebarHeader}>
-      <TransactionIcon active={false} />
+      <HamburgerIcon changeDrawer={ChangeDrawerState}/>
     </div>
   );
 };

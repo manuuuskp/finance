@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import drawerContext from "../../store/drawer-context";
+
 import classes from "./Sidebar.module.css";
 
 const Sidebar = (props) => {
-  return <div className={classes.sidebar}>{props.children}</div>;
+  const drawerCtx = useContext(drawerContext);
+  const sideDrawerClass = drawerCtx.isDrawerOpen
+    ? `${classes.sidebar}`
+    : `${classes.sidebar} ${classes.sidebarclose}`;
+  return <div className={sideDrawerClass}>{props.children}</div>;
 };
 
 export default Sidebar;

@@ -3,4 +3,10 @@
   height: 100vh;
   padding: 12px 0 0px;
   background-color: #fff;
+  transition: width 0.25s;
+}
+
+.sidebarclose {
+  width: 52px;
+  transition: width 0.25s;
 }

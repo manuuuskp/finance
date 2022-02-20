@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import DailyEntryIcon from "../../icons/dailyentry/DailyEntryIcon";
 import DashboardIcon from "../../icons/dashboard/DashboardIcon";
 import LoanIcon from "../../icons/loan/LoanIcon";
 import TransactionIcon from "../../icons/transaction/TransactionIcon";
 import UserIcon from "../../icons/users/UserIcon";
+import drawerContext from "../../../store/drawer-context";
 
 import classes from "./SidebarMain.module.css";
 
@@ -53,6 +54,7 @@ const linkItem = [
 
 const SidebarMain = (props) => {
   const [sidebarItem, setSidebarItem] = useState(linkItem);
+  const drawerCtx = useContext(drawerContext);
 
   const setActiveItem = (itemKey) => {
     const cloneLinkItems = [...sidebarItem];
@@ -84,7 +86,7 @@ const SidebarMain = (props) => {
                 <div className={classes.iconContainer}>
                   {item.isActive ? item.activeIcon : item.icon}
                 </div>
-                <div>{item.linkName}</div>
+                {drawerCtx.isDrawerOpen && <div>{item.linkName}</div>}
               </div>
             </Link>
           </li>
