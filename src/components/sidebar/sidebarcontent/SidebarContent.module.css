@@ -1,0 +1,13 @@
+.SidebarContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sidebarMain {
+    flex-grow: 1;
+}
+
+.sidebarFooter {
+    margin-bottom: 16px;
+}

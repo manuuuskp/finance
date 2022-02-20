@@ -1,3 +1,5 @@
 body{
-  background-color:#f9f9f9 !important;
+  background-color:#fff !important;
+  font-family: 'Inter';
+  height: 100vh;
 }

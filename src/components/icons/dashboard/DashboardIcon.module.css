@@ -1,0 +1,7 @@
+.active path {
+    fill: rgb(80, 97, 255);
+  }
+
+.notActive path {
+    fill: rgb(145, 156, 170);;
+}

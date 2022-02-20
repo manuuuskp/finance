@@ -3,6 +3,8 @@ import "./loan-list.css";
 import { useHistory } from 'react-router-dom';
 import * as loanSerice from "../../service/loan"
 
+import "./loan-list.css";
+
 const LoanList = () => {
 
     const navigate = useHistory();
@@ -22,7 +24,7 @@ const LoanList = () => {
         navigate.push({ pathname: '/loanDetail', state: { mode: 2, loanId: loanId } });
     }
 
-    return <div>
+    return <div className="table-container">
         <table className="table table-light table-hover caption-top">
             <caption>List of Loans</caption>
             <thead className="table-light">
