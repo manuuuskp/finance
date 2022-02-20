@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as transactionService from "../../service/transaction";
 
-import "./TransactionList.css";
+import classes from "./TransactionList.module.css";
 
 const TransactionList = () => {
   const [transactions , setTransactions] = useState([]);
@@ -12,7 +12,7 @@ const TransactionList = () => {
   }, []);
 
   return (
-    <div className="table-container">
+    <div className={classes.tableContainer}>
       <table className="table table-light table-hover caption-top">
         <caption>List of Transaction</caption>
         <thead className="table-light">
