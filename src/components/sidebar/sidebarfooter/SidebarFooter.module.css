@@ -1,0 +1,27 @@
+.menuItemContent {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.sideMarker {
+  width: 3px;
+  height: inherit;
+  margin: 0 13px 0 0;
+  background-color: #fff;
+  display: inline-block;
+}
+
+.iconContainer {
+  margin: 8px 12px 8px 16px;
+}
+
+.linkLabel {
+  text-decoration: none;
+  color: #5a6168;
+  font-size: 12px;
+}
+
+.horizonLine {
+    margin-inline: 12px;
+}

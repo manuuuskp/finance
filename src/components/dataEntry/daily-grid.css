@@ -1,3 +1,6 @@
+.table-container {
+    margin: 20px;
+}
 .react-bootstrap-table{
     overflow: auto;
 }

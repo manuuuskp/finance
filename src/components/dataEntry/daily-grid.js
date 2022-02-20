@@ -94,7 +94,7 @@ const DailyGrid = () => {
     }
 
 
-    return <div>
+    return <div className="table-container">
          <div className="input-group date" id="datepicker">
         <input type="date" className="form-control" id="date"/>
         <span className="input-group-append">

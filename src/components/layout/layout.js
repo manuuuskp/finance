@@ -1,45 +1,38 @@
-import React from "react";
-import { Switch, Route, Link } from 'react-router-dom';
-import DailyGrid from "../dataEntry/daily-grid";
-import Home from "../home/home";
-import LoanDetail from "../loan/loan-detail";
-import LoanList from "../loan/loan-list";
-import TransactionList from "../transaction/transaction-list";
-import UserDetail from "../user/user-detail";
-import UserList from "../user/user-list";
-import "./Layout.css";
+import React, {useState} from "react";
+import ContentArea from "../contentarea/ContentArea";
+import Header from "../header/Header";
+import DashboardIcon from "../icons/dashboard/DashboardIcon";
+import RouterItem from "../route/RouterItem";
+import SecondaryHeader from "../secondaryheader/SecondaryHeader";
+import Sidebar from "../sidebar/Sidebar";
+import SidebarContent from "../sidebar/sidebarcontent/SidebarContent";
 
-const Layout = (props) => {
-    return <div>
-        <nav className="navbar navbar-expand-sm bg-primary navbar-dark">
-            <div className="container-fluid">
-                <a className="navbar-brand" href="#">Finance App</a>
-                <ul className="navbar-nav">
-                    <li className="nav-item"><Link to={'/'} className="nav-link"> Home </Link></li>
-                    <li className="nav-item"><Link to={'/users'} className="nav-link">Users</Link></li>
-                    <li className="nav-item"><Link to={'/loans'} className="nav-link">Loans</Link></li>
-                    <li className="nav-item"><Link to={'/transaction'} className="nav-link">Transaction</Link></li>
-                    <li className="nav-item"><Link to={'/dailyEntry'} className="nav-link">Entry</Link></li>
-                    <li className="nav-item"><Link to={'/contact'} className="nav-link">Contact</Link></li>
-                    <li className="nav-item"><Link to={'/profile'} className="nav-link">Profile</Link></li>
-                </ul>
-            </div>
-        </nav>
-        <div id="main">
-            <Switch>
-                <Route exact path='/' component={Home} />
-                <Route path='/users' component={UserList} />
-                <Route path='/loans' component={LoanList} />
-                <Route path='/transaction' component={TransactionList} />
-                <Route path='/dailyEntry' component={DailyGrid} />
-                <Route path='/contact' component={Home} />
-                <Route path='/profile' component={Home} />
-                <Route path='/userDetail' component={UserDetail} />
-                <Route path='/loanDetail' component={LoanDetail} />
-            </Switch>
-        </div>
+import classes from "./Layout.module.css";
+
+const Layout = () => {
+  const[screenData, setScreenData] = useState({
+    activeIcon: <DashboardIcon active={true} />,
+    linkName: "Dashboard",
+  }); 
+  const getScreenTitle = (activeData) => {
+    setScreenData(activeData);
+  }
+  return (
+    <div className={classes.layout}>
+      <div>
+        <Sidebar>
+          <SidebarContent screenData={getScreenTitle}/>
+        </Sidebar>
+      </div>
+      <div className={classes.itemRight}>
+        <Header screenDetail={screenData}/>
+        <SecondaryHeader screenData={screenData} />
+        <ContentArea>
+            <RouterItem />
+        </ContentArea>
+      </div>
     </div>
-
+  );
 };
 
 export default Layout;

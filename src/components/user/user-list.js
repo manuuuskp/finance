@@ -22,7 +22,7 @@ const UserList = () => {
         navigate.push({ pathname: '/userDetail', state: { mode: 2, userId: userId } });
     }
 
-    return <div>
+    return <div className="table-container">
         <table className="table table-light table-hover caption-top">
             <caption>List of Users</caption>
             <thead className="table-light">

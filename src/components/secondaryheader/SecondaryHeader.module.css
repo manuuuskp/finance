@@ -1,0 +1,16 @@
+.secondaryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 51px;
+  background-color: #fff;
+}
+
+.searchInput {
+  width: 199px;
+  height: 28px;
+  margin: 0 12px 0 0;
+  padding: 6.5px 8px;
+  border-radius: 4px;
+  border: solid 1px #f7f7fa;
+}

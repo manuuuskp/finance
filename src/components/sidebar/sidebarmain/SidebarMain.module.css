@@ -1,0 +1,37 @@
+.sideMarker {
+    width: 3px;
+    height: inherit;
+    margin: 0 13px 0 0;
+    background-color: #fff;
+    display: inline-block;
+  }
+  
+  .activeSideMarker {
+    background-color: #5061ff;
+  }
+  
+  .sidebarList {
+    list-style-type: none;
+    padding-left: 0px;
+  }
+  
+  .menuItemContent {
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+  
+  .iconContainer {
+    margin: 8px 12px 8px 0px;
+  }
+  
+  .linkLabel {
+    text-decoration: none;
+    color: #5a6168;
+    font-size: 12px;
+  }
+  
+  .activeLinkLabel {
+      color: #5061ff;
+  }
+  

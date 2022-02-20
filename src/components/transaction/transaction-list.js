@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import * as transactionService from "../../service/transaction";
 
+import "./transaction-list.css";
+
 const TransactionList = () => {
   const [transactions , setTransactions] = useState([]);
 
@@ -10,7 +12,7 @@ const TransactionList = () => {
   }, []);
 
   return (
-    <>
+    <div className="table-container">
       <table className="table table-light table-hover caption-top">
         <caption>List of Transaction</caption>
         <thead className="table-light">
@@ -38,7 +40,7 @@ const TransactionList = () => {
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 
