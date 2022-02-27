@@ -4,20 +4,21 @@ import { useHistory } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import * as loanService from "../../service/loan";
 import * as transactionService from "../../service/transaction";
+import Modal from "../modal/Modal";
 
 const LoanDetail = (props) => {
-  const navigate = useHistory();
-  const location = useLocation();
+  // const navigate = useHistory();
+  // const location = useLocation();
 
-  const mode = location?.state ? location.state.mode : 1;
+  // const mode = location?.state ? location.state.mode : 1;
 
   const [loanData, setLoanData] = useState({});
 
   useEffect(() => {
-    if (mode == 1) {
+    if (props.mode == 1) {
       return;
     }
-    let loanId = location.state.loanId;
+    let loanId = props.loanId;
     loanService.find(loanId).then(setLoanData);
   }, []);
 
@@ -29,7 +30,7 @@ const LoanDetail = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (mode == 1) {
+    if (props.mode == 1) {
       const uid = uuid();
       await transactionService.insert({
         loanId: uid,
@@ -43,20 +44,20 @@ const LoanDetail = (props) => {
       setLoanData({});
       return;
     }
-    let loanId = location.state.loanId;
+    let loanId = props.loanId;
     loanService.update(loanId, loanData).then(() => navigate.push("/loans"));
   };
 
   const handleDelete = (event) => {
     event.preventDefault();
-    let loanId = location.state.loanId;
+    let loanId = props.loanId;
     loanService.deleteRecord(loanId).then(() => navigate.push("/loans"));
   };
 
   return (
-    <div>
+    <Modal onClose={props.onClose}>
       <form className="row g-3" onSubmit={handleSubmit}>
-        <div className="col-md-6">
+        <div>
           <label htmlFor="borrower" className="form-label">
             Borrower
           </label>
@@ -69,7 +70,7 @@ const LoanDetail = (props) => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-md-6">
+        <div>
           <label htmlFor="lender" className="form-label">
             Lender
           </label>
@@ -83,7 +84,7 @@ const LoanDetail = (props) => {
           />
         </div>
 
-        <div className="col-md-6">
+        <div>
           <label htmlFor="loanAmount" className="form-label">
             Loan Amount
           </label>
@@ -99,7 +100,7 @@ const LoanDetail = (props) => {
             <span className="input-group-text">Rs</span>
           </div>
         </div>
-        <div className="col-md-6">
+        <div>
           <label htmlFor="status" className="form-label">
             Status
           </label>
@@ -118,7 +119,7 @@ const LoanDetail = (props) => {
           </select>
         </div>
 
-        <div className="col-md-6">
+        <div>
           <label htmlFor="interest" className="form-label">
             Interest
           </label>
@@ -134,7 +135,7 @@ const LoanDetail = (props) => {
             <span className="input-group-text">%</span>
           </div>
         </div>
-        <div className="col-md-6">
+        <div>
           <label htmlFor="loanType" className="form-label">
             Loan Type
           </label>
@@ -153,7 +154,7 @@ const LoanDetail = (props) => {
           </select>
         </div>
 
-        <div className="col-md-6">
+        <div>
           <label htmlFor="startDate" className="form-label">
             Loan Amount
           </label>
@@ -166,7 +167,7 @@ const LoanDetail = (props) => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-md-6">
+        <div>
           <label htmlFor="endDate" className="form-label">
             Lender
           </label>
@@ -181,12 +182,12 @@ const LoanDetail = (props) => {
         </div>
 
         <div className="col-12">
-          {mode == 1 && (
+          {props.mode == 1 && (
             <button type="submit" className="btn btn-primary">
               Add
             </button>
           )}
-          {mode != 1 && (
+          {props.mode != 1 && (
             <div className="d-flex gap-3">
               <button type="submit" className="btn btn-primary">
                 Update
@@ -198,7 +199,7 @@ const LoanDetail = (props) => {
           )}
         </div>
       </form>
-    </div>
+    </Modal>
   );
 };
 

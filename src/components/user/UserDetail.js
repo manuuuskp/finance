@@ -2,21 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 import * as userService from "../../service/user"
+import Modal from "../modal/Modal";
 
 const UserDetail = (props) => {
 
-    const navigate = useHistory();
-    const location = useLocation();
+    // const navigate = useHistory();
+    // const location = useLocation();
 
-    const mode = location?.state ? location.state.mode : 1;
+    // const mode = location?.state ? location.state.mode : 1;
 
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
-        if (mode == 1) {
+        if (props.mode == 1) {
             return;
         }
-        let userId = location.state.userId;
+        let userId = props.userId;
         userService.find(userId).then(setUserData);
     }, [])
 
@@ -28,21 +29,21 @@ const UserDetail = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (mode == 1) {
+        if (props.mode == 1) {
             userService.insert(userData).then(() => { setUserData({}) });
             return;
         }
-        let userId = location.state.userId;
+        let userId = props.userId;
         userService.update(userId, userData).then(() => navigate.push('/users'));
     }
 
     const handleDelete = (event) => {
         event.preventDefault();
-        let userId = location.state.userId;
+        let userId = props.userId;
         userService.deleteRecord(userId).then(() => navigate.push('/users'));
     }
 
-    return <div>
+    return <Modal onClose={props.onClose}>
         <form className="row g-3" onSubmit={handleSubmit}>
             <div className="col-md-6">
                 <label htmlFor="name" className="form-label">Name</label>
@@ -115,14 +116,14 @@ const UserDetail = (props) => {
             </div>
 
             <div className="col-12">
-                {mode == 1 && <button type="submit" className="btn btn-primary">Add</button>}
-                {mode != 1 && <div className="d-flex gap-3"><button type="submit" className="btn btn-primary">Update</button>
+                {props.mode == 1 && <button type="submit" className="btn btn-primary">Add</button>}
+                {props.mode != 1 && <div className="d-flex gap-3"><button type="submit" className="btn btn-primary">Update</button>
                 <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
                 </div>}
             </div>
         </form>
 
-    </div>
+    </Modal>
 }
 
 export default UserDetail;

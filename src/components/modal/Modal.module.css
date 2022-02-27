@@ -1,0 +1,101 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  opacity: 0.7;
+}
+
+.modal {
+  /* position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    z-index: 30;
+    animation: slide-down 300ms ease-out forwards;
+    max-height: calc(100% - 100px);
+    transform: translate(-50%, -50%); */
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 11px 15px -7px,
+    rgb(0 0 0 / 14%) 0px 24px 38px 3px, rgb(0 0 0 / 12%) 0px 9px 46px 8px;
+  margin: 32px;
+  position: relative;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100% - 64px);
+  max-width: 600px;
+}
+
+.modalContainer {
+  position: fixed;
+  z-index: 1300;
+  inset: 0px;
+}
+
+.modalSubContainer {
+  opacity: 1;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  height: 100%;
+  outline: 0px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.modalContent {
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.modalContent::-webkit-scrollbar {
+  width: 2px;
+  background-color: #9f9f9f;
+}
+
+.modalTitle {
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  flex: 0 0 auto;
+  margin: 0px;
+  padding: 16px;
+}
+
+.modalFooter {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 8px;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    width: 40rem;
+    /* left: calc(50% - 20rem); */
+  }
+}
+
+/* @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-3rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  } */
