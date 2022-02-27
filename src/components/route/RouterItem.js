@@ -19,8 +19,6 @@ const RouterItem = () => {
         <Route path="/dailyEntry" component={DailyGrid} />
         <Route path="/contact" component={Home} />
         <Route path="/profile" component={Home} />
-        <Route path="/userDetail" component={UserDetail} />
-        <Route path="/loanDetail" component={LoanDetail} />
       </Switch>
     </>
   );
